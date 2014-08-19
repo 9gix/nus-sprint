@@ -16,7 +16,7 @@ import android.widget.ToggleButton;
 public class ModuleListAdapter extends BaseAdapter {
 
 	private LayoutInflater inflater;
-	private List<Module> data;
+	private List<ModuleInDb> data;
 	private Context context;
 	
 	public static class ViewHolder{
@@ -26,7 +26,7 @@ public class ModuleListAdapter extends BaseAdapter {
 		private ToggleButton btnStartPause;
 	}
 	
-	public ModuleListAdapter(Context context, List<Module> data) {
+	public ModuleListAdapter(Context context, List<ModuleInDb> data) {
 		inflater = LayoutInflater.from(context);
 		this.data = data;
 	}
@@ -52,7 +52,7 @@ public class ModuleListAdapter extends BaseAdapter {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		View v = convertView;
 		ViewHolder holder = new ViewHolder();
-		Module module = data.get(position);
+		ModuleInDb module = data.get(position);
 		
 		if (v == null) {
 			v = inflater.inflate(R.layout.mod_list_item, parent, false);
@@ -65,14 +65,11 @@ public class ModuleListAdapter extends BaseAdapter {
 			holder = (ViewHolder) v.getTag();
 		}
 		
-		SharedPreferences prefs = context.getSharedPreferences(module.getModuleCode(), 0);
-		String code = prefs.getString(Constants.MODULE_CODE, null);
-		Float hours = prefs.getFloat(Constants.WORKLOAD_HOURS, -1);
+		String code = module.getModuleCode();
+		Float hours = module.getWorkload();
 		
-		if (code != null && hours != -1){
-			holder.moduleCode.setText(code);
-			holder.workloadHours.setText(hours.toString());
-		}
+		holder.moduleCode.setText(code);
+		holder.workloadHours.setText(hours.toString());
 		
 		holder.btnStartPause.setOnClickListener(new View.OnClickListener() {
 			

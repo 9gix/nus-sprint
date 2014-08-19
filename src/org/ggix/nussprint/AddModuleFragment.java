@@ -26,11 +26,11 @@ public class AddModuleFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		v = inflater.inflate(R.layout.fragment_add_module, container, false);
+		
 		return v;
 		
 	}
 
-	
 	public void addModule(View view) {
 		EditText et = (EditText) view.findViewById(R.id.add_module_text);
 		String moduleCode = et.getText().toString();
