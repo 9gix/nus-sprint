@@ -1,16 +1,18 @@
 package org.ggix.nussprint;
 
+import java.util.List;
+
 import android.app.Activity;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.view.Window;
 import android.view.View.OnClickListener;
+import android.view.Window;
 import android.widget.ImageView;
 
 public class MainActivity extends Activity implements OnClickListener {
-
+	
+	private List<String> listOfModulesAdded;
 	private ImageView logo;
 	private ImageView addModule;
 	private ImageView showSummary;
@@ -38,6 +40,10 @@ public class MainActivity extends Activity implements OnClickListener {
 		
 	}
 
+	public void addModuleToList(String moduleCode){
+		listOfModulesAdded.add(moduleCode);
+	}
+	
 	@Override
 	public void onClick(View v) {
 		if (v == addModule){
