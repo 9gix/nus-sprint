@@ -6,6 +6,8 @@ import org.ggix.nussprint.util.Constants;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Handler;
+import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +32,19 @@ public class ModuleListAdapter extends BaseAdapter {
 		inflater = LayoutInflater.from(context);
 		this.data = data;
 	}
+	
+	Handler timerHandler = new Handler();
+	Runnable timerRunnable = new Runnable() {
+		
+		long startTimestamp = System.currentTimeMillis();
+		
+		@Override
+		public void run() {
+			String elapsedStr = (String) DateUtils.getRelativeTimeSpanString(startTimestamp);
+			holder.elapsedTime.setText(elapsedStr);
+			timerHandler.postDelayed(this, 500);
+		}
+	};
 
 	@Override
 	public int getCount() {
@@ -48,13 +63,17 @@ public class ModuleListAdapter extends BaseAdapter {
 		return 0;
 	}
 
+	private ViewHolder holder;
+	
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		View v = convertView;
+
 		ViewHolder holder = new ViewHolder();
 		ModuleInDb module = data.get(position);
 		
 		if (v == null) {
+			holder = new ViewHolder();
 			v = inflater.inflate(R.layout.mod_list_item, parent, false);
 			holder.moduleCode = (TextView) v.findViewById(R.id.module_code_text_view);
 			holder.workloadHours = (TextView) v.findViewById(R.id.workload_text_view);
@@ -72,6 +91,8 @@ public class ModuleListAdapter extends BaseAdapter {
 		holder.workloadHours.setText(hours.toString());
 		
 		holder.btnStartPause.setOnClickListener(new View.OnClickListener() {
+
+			long startTimestamp;
 			
 			@Override
 			public void onClick(View view) {
@@ -80,10 +101,14 @@ public class ModuleListAdapter extends BaseAdapter {
 				ToggleButton btn = (ToggleButton) view;
 				boolean on = btn.isChecked();
 			    
-			    if (on) {
+			    if (on) {	    	
 			    	// TODO Start timer for a particular module
+			    	timerHandler.postDelayed(timerRunnable, 0);
 			    } else {
-			    	// TODO Start timer for a particular module			    	
+			    	timerHandler.removeCallbacks(timerRunnable);
+			    	// TODO Stop the timer for a particular module
+			    	// Store the module total elapsed time into the database.
+			    	
 			    }				
 			}
 		});

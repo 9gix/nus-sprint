@@ -22,7 +22,7 @@ public class ModuleListFragment extends Fragment {
 		lv = (ListView) v.findViewById(R.id.module_list_view);
 		
 		fetchListOfModulesData();
-		
+
 		return v;
 	}
 	
