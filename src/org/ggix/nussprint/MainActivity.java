@@ -19,19 +19,27 @@ public class MainActivity extends Activity implements OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		setContentView(R.layout.activity_main);
+		
+		ft = getFragmentManager().beginTransaction();
+		ModuleListFragment moduleListFragment = new ModuleListFragment();
+		ft.add(R.id.container, moduleListFragment);
+		ft.commit();
 		
 		addModule = (ImageView) findViewById(R.id.img_add_module);
+		
 		addModule.setOnClickListener(this);
 		
-		setContentView(R.layout.activity_main);
+		
+		
 	}
 
 	@Override
 	public void onClick(View v) {
 		if (v == addModule){
 			ft = getFragmentManager().beginTransaction();
-			ModuleListFragment moduleListFragment = new ModuleListFragment();
-			ft.add(R.id.container, moduleListFragment);
+			AddModuleFragment addModuleFragment = new AddModuleFragment();
+			ft.add(R.id.container, addModuleFragment);
 			ft.commit();
 		}
 	}
