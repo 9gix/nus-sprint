@@ -16,11 +16,11 @@
         android:id="@+id/add_module_text" />
     
     <ImageButton
+        android:id="@+id/btn_add_module"
         android:src="@drawable/ic_launcher"
         android:padding="4dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:contentDescription="@null"
-        android:onClick="addModule" />
+        android:contentDescription="@null" />
 
 </LinearLayout>

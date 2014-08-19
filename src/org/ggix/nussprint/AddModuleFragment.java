@@ -1,40 +1,38 @@
 package org.ggix.nussprint;
 
 import org.ggix.nussprint.util.Connection;
-import org.ggix.nussprint.util.Constants;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import android.app.Fragment;
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.webkit.WebView.FindListener;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
-public class AddModuleFragment extends Fragment {
+public class AddModuleFragment extends Fragment implements OnClickListener{
 
 	private View v;
+	private ImageButton btnAddMod;
+	private EditText et;
 	private DBHelper db;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		v = inflater.inflate(R.layout.fragment_add_module, container, false);
+		btnAddMod = (ImageButton) v.findViewById(R.id.btn_add_module);
+		et = (EditText) v.findViewById(R.id.add_module_text);
+		btnAddMod.setOnClickListener(this);
 		
 		return v;
 		
-	}
-
-	public void addModule(View view) {
-		EditText et = (EditText) view.findViewById(R.id.add_module_text);
-		String moduleCode = et.getText().toString();
-		new GetModuleTask(moduleCode).execute();
 	}
 	
 	class GetModuleTask extends AsyncTask<Void, Void, Boolean> {
@@ -68,6 +66,14 @@ public class AddModuleFragment extends Fragment {
 			db.insertModule(moduleCode, workload_hours);
 		}
 		
+	}
+
+	@Override
+	public void onClick(View v) {
+		if (v == btnAddMod){
+			String moduleCode = et.getText().toString();
+			new GetModuleTask(moduleCode).execute();
+		}
 	}
 
 		
