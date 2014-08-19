@@ -2,6 +2,7 @@ package org.ggix.nussprint;
 
 import java.util.ArrayList;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -15,8 +16,8 @@ public class DBHelper extends SQLiteOpenHelper {
 	public static final String COLUMN_TOTAL_TIME = "total_time";
 	public static final String COLUMN_ELAPSED_TIME = "elapsed_time";
 
-	public DBHelper(Context context, String name) {
-		super(context, name, null, 1);
+	public DBHelper(Context context) {
+		super(context, DATABASE_NAME, null, 1);
 	}
 
 	@Override
@@ -30,6 +31,27 @@ public class DBHelper extends SQLiteOpenHelper {
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
 		onCreate(db);
+	}
+	
+	public void insertModule(String moduleCode, float totalTime) {
+		SQLiteDatabase db = getWritableDatabase();
+		ContentValues cv = new ContentValues();
+		cv.put(COLUMN_MODULE_CODE, moduleCode);
+		cv.put(COLUMN_TOTAL_TIME, totalTime);
+		cv.put(COLUMN_ELAPSED_TIME, 0);
+		db.insert(TABLE_NAME, null, cv);
+	}
+	
+	public void updateElapsed(String moduleCode, float elapsed) {
+		SQLiteDatabase db = getWritableDatabase();
+		ContentValues cv = new ContentValues();
+		cv.put(COLUMN_ELAPSED_TIME, elapsed);
+		db.update(TABLE_NAME, cv, COLUMN_MODULE_CODE + " = ?", new String[] { moduleCode });
+	}
+	
+	public void deleteModule(String moduleCode) {
+		SQLiteDatabase db = getWritableDatabase();
+		db.delete(TABLE_NAME, COLUMN_MODULE_CODE + " = ?", new String[] { moduleCode });
 	}
 	
 	public ArrayList<Module> getAllModules() {
