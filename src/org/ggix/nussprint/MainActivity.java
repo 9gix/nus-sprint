@@ -44,6 +44,10 @@ public class MainActivity extends Activity implements OnClickListener {
 		listOfModulesAdded.add(moduleCode);
 	}
 	
+	public List<String> getModulesInList(){
+		return listOfModulesAdded;
+	}
+	
 	@Override
 	public void onClick(View v) {
 		if (v == addModule){

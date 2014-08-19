@@ -1,5 +1,7 @@
 package org.ggix.nussprint;
 
+import java.util.List;
+
 import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,8 +15,9 @@ public class ModuleListFragment extends Fragment {
 			Bundle savedInstanceState) {
 		View v = inflater.inflate(R.layout.mod_list, container, false);
 		ListView lv = (ListView) v.findViewById(R.id.module_list_view);
+		List<String> listOfModulesAdded = ((MainActivity)(getActivity())).getModulesInList();
 		
-		lv.setAdapter(new ModuleListAdapter(getActivity()));
+		lv.setAdapter(new ModuleListAdapter(getActivity(), listOfModulesAdded));
 		return v;
 	}
 }
