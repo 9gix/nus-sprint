@@ -54,15 +54,15 @@ public class DBHelper extends SQLiteOpenHelper {
 		db.delete(TABLE_NAME, COLUMN_MODULE_CODE + " = ?", new String[] { moduleCode });
 	}
 	
-	public ArrayList<Module> getAllModules() {
-		ArrayList<Module> modules = new ArrayList<Module>();
+	public ArrayList<ModuleInDb> getAllModules() {
+		ArrayList<ModuleInDb> modules = new ArrayList<ModuleInDb>();
 		SQLiteDatabase db = getReadableDatabase();
 		Cursor result = db.rawQuery("SELECT * FROM " + TABLE_NAME, null);
 		result.moveToFirst();
 		while (!result.isAfterLast()) {
-			Module mod = new Module();
+			ModuleInDb mod = new ModuleInDb();
 			mod.setModuleCode(result.getString(result.getColumnIndex(COLUMN_MODULE_CODE)));
-			mod.setWorkload(result.getString(result.getColumnIndex(COLUMN_TOTAL_TIME)));
+			mod.setWorkload(result.getFloat(result.getColumnIndex(COLUMN_TOTAL_TIME)));
 			modules.add(mod);
 			result.moveToNext();
 		}

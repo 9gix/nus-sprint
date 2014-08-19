@@ -36,12 +36,14 @@ public class MainActivity extends Activity implements OnClickListener {
 		addModule.setOnClickListener(this);
 		logo.setOnClickListener(this);
 		
-		
-		
 	}
 
 	public void addModuleToList(String moduleCode){
 		listOfModulesAdded.add(moduleCode);
+	}
+	
+	public List<String> getModulesInList(){
+		return listOfModulesAdded;
 	}
 	
 	@Override
@@ -58,4 +60,6 @@ public class MainActivity extends Activity implements OnClickListener {
 			ft.commit();
 		}
 	}
+	
+	
 }
