@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ToggleButton;
 
 public class ModuleListAdapter extends BaseAdapter {
 
@@ -39,8 +40,28 @@ public class ModuleListAdapter extends BaseAdapter {
 		if (v == null) {
 			v = inflater.inflate(R.layout.mod_list_item, parent, false);
 		}
-
+		
+		ToggleButton btn = (ToggleButton) v.findViewById(R.id.timer_btn);
+		btn.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View view) {
+				// TODO Auto-generated method stub
+				
+				ToggleButton btn = (ToggleButton) view;
+				boolean on = btn.isChecked();
+			    
+			    if (on) {
+			    	// TODO Start timer for a particular module
+			    } else {
+			    	// TODO Start timer for a particular module			    	
+			    }				
+			}
+		});
 		return v;
 	}
+	
+	
 
+	
 }
