@@ -20,6 +20,8 @@ import android.widget.Toast;
 public class AddModuleFragment extends Fragment {
 
 	private View v;
+	private DBHelper db;
+	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -59,14 +61,11 @@ public class AddModuleFragment extends Fragment {
 			if (statusCode != HttpStatus.OK) {
 				Toast.makeText(getActivity(), "Module not found!", Toast.LENGTH_SHORT).show();
 			}
+			db = new DBHelper(getActivity());
 			Module module = (Module) responseEntity.getBody();
 			String[] wloads = module.getWorkload().split("-");
 			float workload_hours = Float.valueOf(wloads[3]) + Float.valueOf(wloads[4]);
-			SharedPreferences sharedPref = getActivity().getSharedPreferences(moduleCode, Context.MODE_PRIVATE);
-			Editor editor = sharedPref.edit();
-			editor.putString(Constants.MODULE_CODE, moduleCode);
-			editor.putFloat(Constants.WORKLOAD_HOURS, workload_hours);
-			editor.commit();
+			db.insertModule(moduleCode, workload_hours);
 		}
 		
 	}
