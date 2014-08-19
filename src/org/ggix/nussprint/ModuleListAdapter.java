@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 public class ModuleListAdapter extends BaseAdapter {
 
@@ -22,6 +23,7 @@ public class ModuleListAdapter extends BaseAdapter {
 		private TextView moduleCode;
 		private TextView workloadHours;
 		private TextView elapsedTime;
+		private ToggleButton btnStartPause;
 	}
 	
 	public ModuleListAdapter(Context context, List<Module> data) {
@@ -57,6 +59,7 @@ public class ModuleListAdapter extends BaseAdapter {
 			holder.moduleCode = (TextView) v.findViewById(R.id.module_code_text_view);
 			holder.workloadHours = (TextView) v.findViewById(R.id.workload_text_view);
 			holder.elapsedTime = (TextView) v.findViewById(R.id.elapsed_text_view);
+			holder.btnStartPause = (ToggleButton) v.findViewById(R.id.timer_btn);
 			v.setTag(holder);
 		} else {
 			holder = (ViewHolder) v.getTag();
@@ -71,9 +74,28 @@ public class ModuleListAdapter extends BaseAdapter {
 			holder.workloadHours.setText(hours.toString());
 		}
 		
-		//holder.elapsedTime.setText();
+		holder.btnStartPause.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View view) {
+				// TODO Auto-generated method stub
+				
+				ToggleButton btn = (ToggleButton) view;
+				boolean on = btn.isChecked();
+			    
+			    if (on) {
+			    	// TODO Start timer for a particular module
+			    } else {
+			    	// TODO Start timer for a particular module			    	
+			    }				
+			}
+		});
 		
+		//holder.elapsedTime.setText();
 		return v;
 	}
+	
+	
 
+	
 }
