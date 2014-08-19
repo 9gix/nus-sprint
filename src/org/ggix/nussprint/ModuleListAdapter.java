@@ -17,7 +17,7 @@ public class ModuleListAdapter extends BaseAdapter {
 	@Override
 	public int getCount() {
 		// TODO Auto-generated method stub
-		return 0;
+		return 4;
 	}
 
 	@Override
@@ -35,6 +35,7 @@ public class ModuleListAdapter extends BaseAdapter {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		View v = convertView;
+		
 		if (v == null) {
 			v = inflater.inflate(R.layout.mod_list_item, parent, false);
 		}

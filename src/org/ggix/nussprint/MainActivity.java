@@ -3,6 +3,7 @@ package org.ggix.nussprint;
 import android.app.Activity;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.View.OnClickListener;
@@ -10,6 +11,7 @@ import android.widget.ImageView;
 
 public class MainActivity extends Activity implements OnClickListener {
 
+	private ImageView logo;
 	private ImageView addModule;
 	private ImageView showSummary;
 	private ImageView settings;
@@ -26,9 +28,11 @@ public class MainActivity extends Activity implements OnClickListener {
 		ft.add(R.id.container, moduleListFragment);
 		ft.commit();
 		
-		addModule = (ImageView) findViewById(R.id.img_add_module);
+		addModule = (ImageView) findViewById(R.id.img_add_module);	
+		logo = (ImageView) findViewById(R.id.img_logo);
 		
 		addModule.setOnClickListener(this);
+		logo.setOnClickListener(this);
 		
 		
 		
@@ -39,7 +43,12 @@ public class MainActivity extends Activity implements OnClickListener {
 		if (v == addModule){
 			ft = getFragmentManager().beginTransaction();
 			AddModuleFragment addModuleFragment = new AddModuleFragment();
-			ft.add(R.id.container, addModuleFragment);
+			ft.replace(R.id.container, addModuleFragment);
+			ft.commit();
+		} else if (v == logo){
+			ft = getFragmentManager().beginTransaction();
+			ModuleListFragment moduleListFragment = new ModuleListFragment();
+			ft.replace(R.id.container, moduleListFragment);
 			ft.commit();
 		}
 	}

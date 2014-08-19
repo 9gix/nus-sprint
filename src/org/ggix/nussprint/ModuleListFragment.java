@@ -13,6 +13,7 @@ public class ModuleListFragment extends Fragment {
 			Bundle savedInstanceState) {
 		View v = inflater.inflate(R.layout.mod_list, container, false);
 		ListView lv = (ListView) v.findViewById(R.id.module_list_view);
+		
 		lv.setAdapter(new ModuleListAdapter(getActivity()));
 		return v;
 	}
