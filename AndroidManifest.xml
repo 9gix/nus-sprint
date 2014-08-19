@@ -22,10 +22,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".AddModuleFragment"
-            android:label="@string/title_activity_add_module" >
-        </activity>
     </application>
 
 </manifest>
