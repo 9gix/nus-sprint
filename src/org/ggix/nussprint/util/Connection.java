@@ -1,8 +1,11 @@
 package org.ggix.nussprint.util;
 
+import static org.ggix.nussprint.util.Constants.URL;
+
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,8 +22,6 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
-import static org.ggix.nussprint.util.Constants.URL;
-
 public class Connection {
 	private static RestTemplate restTemplate;
 	private static Connection connection;
@@ -28,8 +29,11 @@ public class Connection {
 	public static RestTemplate getRestTemplate() {
 		if (restTemplate == null) {
 			restTemplate = new RestTemplate();
-			restTemplate.getMessageConverters().add(
-					new GsonHttpMessageConverter());
+			
+			GsonHttpMessageConverter messageConverter = new GsonHttpMessageConverter();
+			messageConverter.setSupportedMediaTypes(Collections.singletonList(MediaType.TEXT_HTML));
+			
+			restTemplate.getMessageConverters().add(new GsonHttpMessageConverter());
 		}
 		return restTemplate;
 	}

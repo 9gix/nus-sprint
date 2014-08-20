@@ -47,7 +47,7 @@ public class AddModuleFragment extends Fragment implements OnClickListener{
 		
 		@Override
 		protected Boolean doInBackground(Void... params) {
-			String method = "1/modules/" + moduleCode;
+			String method = "1/modules/" + moduleCode + "/index.json";
 			Connection connection = Connection.getConnection();
 			responseEntity = connection.get(method, Module.class, null);
 			statusCode = responseEntity.getStatusCode();
@@ -64,6 +64,8 @@ public class AddModuleFragment extends Fragment implements OnClickListener{
 			String[] wloads = module.getWorkload().split("-");
 			float workload_hours = Float.valueOf(wloads[3]) + Float.valueOf(wloads[4]);
 			db.insertModule(moduleCode, workload_hours);
+			
+			Toast.makeText(getActivity(), "Module added!", Toast.LENGTH_SHORT).show();
 		}
 		
 	}
